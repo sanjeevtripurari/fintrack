@@ -3,16 +3,6 @@ import pytest
 from flask import url_for
 from datetime import datetime, timedelta
 
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-    with app.test_client() as client:
-        with app.app_context():
-            db.create_all()
-            yield client
-            db.drop_all()
-
 def test_dashboard_route(client):
     """Test dashboard route"""
     response = client.get('/')

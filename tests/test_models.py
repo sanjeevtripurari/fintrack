@@ -1,7 +1,8 @@
 from app import app, db, Transaction
 from datetime import datetime
 
-def test_transaction_model():
+def test_transaction_model(app):
+    """Test basic transaction model"""
     with app.app_context():
         # Create a test transaction
         transaction = Transaction(
@@ -16,48 +17,52 @@ def test_transaction_model():
         assert transaction.amount == 100.00
         assert isinstance(transaction.date, datetime)
 
-def test_transaction_creation():
+def test_transaction_creation(app):
     """Test basic transaction creation"""
-    transaction = Transaction(
-        description="Test Transaction",
-        category="Test",
-        amount=100.00
-    )
-    
-    assert transaction.description == "Test Transaction"
-    assert transaction.category == "Test"
-    assert transaction.amount == 100.00
-    assert isinstance(transaction.date, datetime)
+    with app.app_context():
+        transaction = Transaction(
+            description="Test Transaction",
+            category="Test",
+            amount=100.00
+        )
+        
+        assert transaction.description == "Test Transaction"
+        assert transaction.category == "Test"
+        assert transaction.amount == 100.00
+        assert isinstance(transaction.date, datetime)
 
-def test_transaction_income():
+def test_transaction_income(app):
     """Test income transaction"""
-    transaction = Transaction(
-        description="Salary",
-        category="Income",
-        amount=50000.00
-    )
-    
-    assert transaction.amount > 0
-    assert transaction.category == "Income"
+    with app.app_context():
+        transaction = Transaction(
+            description="Salary",
+            category="Income",
+            amount=50000.00
+        )
+        
+        assert transaction.amount > 0
+        assert transaction.category == "Income"
 
-def test_transaction_expense():
+def test_transaction_expense(app):
     """Test expense transaction"""
-    transaction = Transaction(
-        description="Groceries",
-        category="Food",
-        amount=-2000.00
-    )
-    
-    assert transaction.amount < 0
-    assert transaction.category == "Food"
+    with app.app_context():
+        transaction = Transaction(
+            description="Groceries",
+            category="Food",
+            amount=-2000.00
+        )
+        
+        assert transaction.amount < 0
+        assert transaction.category == "Food"
 
-def test_transaction_date_default():
+def test_transaction_date_default(app):
     """Test that date is automatically set"""
-    transaction = Transaction(
-        description="Test",
-        category="Test",
-        amount=100.00
-    )
-    
-    assert transaction.date is not None
-    assert isinstance(transaction.date, datetime) 
+    with app.app_context():
+        transaction = Transaction(
+            description="Test",
+            category="Test",
+            amount=100.00
+        )
+        
+        assert transaction.date is not None
+        assert isinstance(transaction.date, datetime) 
