@@ -11,7 +11,12 @@ A simple Flask-based personal finance tracking application with a clean UI and S
 - Clean, responsive UI using Bootstrap 5
 - System information display (version, IP, hostname, container status)
 - Comprehensive logging
-- Unit and integration tests
+- Unit and integration tests  
+
+
+
+![Fintrack App](docs/fintrack.png "Fintrack - Personal Finance Tracker App")
+
 
 ## Setup
 
